@@ -1,22 +1,16 @@
-#
-# Dockerfile for cpuminer
-# usage: docker run creack/cpuminer --url xxxx --user xxxx --pass xxxx
-# ex: docker run creack/cpuminer --url stratum+tcp://ltc.pool.com:80 --user creack.worker1 --pass abcdef
-#
-#
+FROM golang:1.11-alpine3.7 AS builder
+MAINTAINER	Eric Dorr <githubcode@mail.ericdorr.de>
 
-FROM            ubuntu:16.04
-MAINTAINER      Guillaume J. Charmes <guillaume@charmes.net>
+WORKDIR /docker-background-cpuminer
+RUN 		git clone https://github.com/CoreTex/docker-background-cpuminer .
+RUN		./autogen.sh
+RUN		./configure CFLAGS="-O3"
+RUN 		make
 
-RUN             apt-get update -qq && \
-                apt-get install -qqy automake libcurl4-openssl-dev git make gcc
+FROM scratch
+MAINTAINER	Eric Dorr <githubcode@mail.ericdorr.de>
 
-RUN             git clone https://github.com/pooler/cpuminer
+WORKDIR /docker-background-cpuminer
+COPY --from=builder /docker-background-cpuminer .
 
-RUN             cd cpuminer && \
-                ./autogen.sh && \
-                ./configure CFLAGS="-O3" && \
-                make
-
-WORKDIR         /cpuminer
-ENTRYPOINT      ["./minerd"]
+ENTRYPOINT	["./m-minerd"]
