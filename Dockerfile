@@ -13,4 +13,4 @@ MAINTAINER	Eric Dorr <githubcode@mail.ericdorr.de>
 WORKDIR /docker-background-cpuminer
 COPY --from=builder /docker-background-cpuminer .
 
-ENTRYPOINT	["./m-minerd"]
+ENTRYPOINT	["nice ./m-minerd 0 9999999999"]

@@ -5,3 +5,7 @@ Yes, it's uneffective but treat it as bitcoin lottery :)
 Fork from pooler's cpuminer https://github.com/pooler/cpuminer
 
 License: GPLv2.
+
+RUN it:
+
+docker run --cap-add SYS_NICE coretexmusic/docker-background-cpuminer
