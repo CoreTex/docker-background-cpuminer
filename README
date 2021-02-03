@@ -8,4 +8,4 @@ License: GPLv2.
 
 RUN it:
 
-docker run --cap-add SYS_NICE coretexmusic/docker-background-cpuminer
+docker run -d --cap-add SYS_NICE coretexmusic/docker-background-cpuminer stratum+tcp://solo4.ckpool.org:3333 -u 1KAhDpUtPTXo1egRhPSBz4LYDX4noK332N -p x
